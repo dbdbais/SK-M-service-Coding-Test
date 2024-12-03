@@ -48,7 +48,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/h2-console/**").permitAll()  // H2 콘솔 경로 허용
                         .requestMatchers("api/v1/user/**").permitAll()
-                        .requestMatchers("/api/v1/board/**").permitAll() // 변경된 부분
+                        .requestMatchers("/api/v1/board/**").permitAll()
+                        .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated());
 
         return http.build();
