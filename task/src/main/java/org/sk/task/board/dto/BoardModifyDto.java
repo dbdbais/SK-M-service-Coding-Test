@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardModifyDto {
-    private Long userId;
     private Long boardId;
     private String title;
     private String content;

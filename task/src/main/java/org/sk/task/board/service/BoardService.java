@@ -7,6 +7,7 @@ import org.sk.task.board.entity.Board;
 import org.sk.task.board.repository.BoardRepository;
 import org.sk.task.common.code.StatusCode;
 import org.sk.task.file.service.FileService;
+import org.sk.task.session.service.SessionService;
 import org.sk.task.user.entity.User;
 import org.sk.task.user.repoisitory.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,18 +29,21 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
     private final FileService fileService;
+    private final SessionService sessionService;
 
     @Autowired
-    public BoardService(BoardRepository boardRepository, UserRepository userRepository, FileService fileService) {
+    public BoardService(BoardRepository boardRepository, UserRepository userRepository, FileService fileService, SessionService sessionService) {
         this.boardRepository = boardRepository;
         this.userRepository = userRepository;
         this.fileService = fileService;
+        this.sessionService = sessionService;
     }
 
-    public StatusCode insertBoard(BoardRegisterDto boardRegisterDto, MultipartFile file) throws IOException {
+    public StatusCode insertBoard(String sessionIdFromCookie,BoardRegisterDto boardRegisterDto, MultipartFile file) throws IOException {
 
+        Long userId = sessionService.getUserIdBySessionId(sessionIdFromCookie);
 
-        Optional<User> sUser = userRepository.findById(boardRegisterDto.getUserId());
+        Optional<User> sUser = userRepository.findById(userId);
 
         if(sUser.isEmpty()){
             return StatusCode.BAD_REQUEST;
@@ -80,8 +84,10 @@ public class BoardService {
     }
 
 
-    public StatusCode modifyBoard(BoardModifyDto boardModifyDto, MultipartFile file) throws IOException {
-        Optional<User> sUser = userRepository.findById(boardModifyDto.getUserId());
+    public StatusCode modifyBoard(String sessionIdFromCookie,BoardModifyDto boardModifyDto, MultipartFile file) throws IOException {
+        Long userId = sessionService.getUserIdBySessionId(sessionIdFromCookie);
+
+        Optional<User> sUser = userRepository.findById(userId);
         Optional<Board> sBoard = boardRepository.findById(boardModifyDto.getBoardId());
 
         if(sUser.isEmpty() || sBoard.isEmpty()){
@@ -112,9 +118,11 @@ public class BoardService {
         }
     }
 
-    public StatusCode deleteBoard(BoardDeleteDto boardDeleteDto){
-        Optional<User> sUser = userRepository.findById(boardDeleteDto.getUserId());
-        Optional<Board> sBoard = boardRepository.findById(boardDeleteDto.getBoardId());
+    public StatusCode deleteBoard(String sessionIdFromCookie,Long boardId){
+        Long userId = sessionService.getUserIdBySessionId(sessionIdFromCookie);
+
+        Optional<User> sUser = userRepository.findById(userId);
+        Optional<Board> sBoard = boardRepository.findById(boardId);
 
         if(sUser.isEmpty() || sBoard.isEmpty()){
             return StatusCode.BAD_REQUEST;

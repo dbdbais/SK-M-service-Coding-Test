@@ -1,6 +1,5 @@
 package org.sk.task.board.controller;
 
-import org.sk.task.board.dto.BoardDeleteDto;
 import org.sk.task.board.dto.BoardModifyDto;
 import org.sk.task.board.dto.BoardRegisterDto;
 import org.sk.task.board.service.BoardService;
@@ -25,9 +24,10 @@ public class BoardController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ResponseDto> insert(@RequestPart BoardRegisterDto boardRegisterDto,
+    public ResponseEntity<ResponseDto> insert(@CookieValue("SESSION_ID") String sessionId,
+                                              @RequestPart BoardRegisterDto boardRegisterDto,
                                               @RequestPart(required = false) MultipartFile file) throws IOException {
-        return ResponseDto.response(boardService.insertBoard(boardRegisterDto,file));
+        return ResponseDto.response(boardService.insertBoard(sessionId,boardRegisterDto,file));
     }
 
     @GetMapping("/view/{no}")
@@ -36,8 +36,9 @@ public class BoardController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseDto> deleteBoard(@RequestBody BoardDeleteDto boardDeleteDto){
-        return ResponseDto.response(StatusCode.SUCCESS,boardService.deleteBoard(boardDeleteDto));
+    public ResponseEntity<ResponseDto> deleteBoard(@CookieValue("SESSION_ID") String sessionId,
+                                                   @RequestParam Long boardId){
+        return ResponseDto.response(StatusCode.SUCCESS,boardService.deleteBoard(sessionId,boardId));
     }
 
     @GetMapping("/asc")
@@ -51,9 +52,10 @@ public class BoardController {
     }
 
     @PutMapping("/modify")
-    public ResponseEntity<ResponseDto> modify(@RequestPart BoardModifyDto boardModifyDto,
+    public ResponseEntity<ResponseDto> modify(@CookieValue("SESSION_ID") String sessionId,
+                                              @RequestPart BoardModifyDto boardModifyDto,
                                               @RequestPart(required = false) MultipartFile file) throws IOException {
-        return ResponseDto.response(boardService.modifyBoard(boardModifyDto,file));
+        return ResponseDto.response(boardService.modifyBoard(sessionId,boardModifyDto,file));
     }
 
     @GetMapping("/condition/author")

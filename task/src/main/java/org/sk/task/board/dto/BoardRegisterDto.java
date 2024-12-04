@@ -11,14 +11,12 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardRegisterDto {
-    private Long userId;
     private String title;
     private String content;
 
     @Override
     public String toString() {
         return "BoardRegisterDto{" +
-                "userId=" + userId +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 '}';
