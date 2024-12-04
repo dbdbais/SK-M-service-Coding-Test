@@ -17,10 +17,10 @@
 # Swagger-ui와 H2 DB를 조회하며 API 동작 테스트 가능
 
 ## 참고사항
-- PostMan으로 구현한 기능 정상 작동 테스트 완료
-- 실행 시 Jasypt 암호화가 걸려있어 환경변수로 jasypt.encryptor.password 설정 후 실행
-- file.upload-dir에 파일 업로드할 PC의 경로 설정할 것
-- 로그인이 필요한 서비스의 경우, H2 DB의 UserSession 테이블에서 userId와 매핑된 sessionId를 통해 API요청을 보내야 함.
+- PostMan으로 구현한 기능 정상 작동 테스트 완료.
+- 실행 시 application.properties의 노출을 막기위한 Jasypt 암호화가 걸려있어 환경변수로 jasypt.encryptor.password=dlrkddn 로 설정 후 실행.
+- file.upload-dir에 파일 업로드할 PC의 경로 설정.
+- 로그인이 필요한 서비스의 경우, H2 DB의 UserSession 테이블에서 userId와 매핑된 sessionId를 통해 API요청 필수.
 
 ## 화면 (API 명세서)
 - http://localhost:8080/swagger-ui/index.html#/
@@ -28,5 +28,5 @@
 
 ## 개선 사항
 - 현재는 Session이 Scheduled로 주기적으로 실행되지만 Redis를 이용해 TTL을 설정하는 인메모리 DB방식으로 저장한다면 효율을 더욱 개선가능할 것 같다.
-- JWT방식으로 구현하는 것도 가능하다.
-- 회원가입 시 이메일을 받는 이유는 추후에 SMTP와 Redis를 이용한 이메일 인증 로직을 넣을 수 있다고 판단하였음.
+- 세션 방식은 서버의 부담이 매우 커지므로 추후에 JWT방식으로 구현하는 것도 가능할 것 같다.
+- 회원가입 시 이메일을 받는 이유는 추후에 SMTP와 Redis를 이용한 이메일 인증 로직을 넣을 수 있다고 판단하였기 떄문이다.
