@@ -26,6 +26,9 @@ public class BoardSpecDto {
     @Schema(description = "게시글의 조회수", example = "120")
     private int view;
 
+    @Schema(description = "파일 경로", example = "/src/a.png")
+    private String filePath;
+
     @Schema(description = "게시글이 작성된 날짜와 시간", example = "2024-12-01T10:00:00")
     private LocalDateTime createdAt;
 }

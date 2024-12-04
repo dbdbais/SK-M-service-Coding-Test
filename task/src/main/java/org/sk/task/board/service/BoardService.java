@@ -79,6 +79,7 @@ public class BoardService {
                 .authorName(tBoard.getAuthorName())
                 .content(tBoard.getContent())
                 .view(tBoard.getView())
+                .filePath(tBoard.getFilePath())
                 .createdAt(tBoard.getCreatedAt())
                 .build();
     }
@@ -142,7 +143,7 @@ public class BoardService {
         Pageable pageable = PageRequest.of(page-1,10);
         //10개의 리스트의 페이지로 쪼개서 리턴한다.
 
-        Page<Board> pages = boardRepository.findByTitleOrderByCreatedAtDesc(title,pageable);
+        Page<Board> pages = boardRepository.findByTitleContainingOrderByCreatedAtDesc(title,pageable);
 
         return pages.getContent().stream()
                 .map(board -> BoardListDto.builder()
