@@ -46,7 +46,7 @@
 - Redis를 활용하여 TTL(Time-To-Live)을 설정하고 세션 관리를 개선할 수 있습니다.
 
 ### 12. Swagger-ui와 H2 DB 조회
-- Swagger-ui를 사용하여 API를 테스트할 수 있습니다.
+- Swagger-ui를 사용하여 API를 테스트할 수 있습니다. 그러나, **쿠키 기반 및 MultipartFile 관련 로직이 제대로 동작하지 않는 것을 확인, PostMan으로 테스트 시 정상 작동**.
 - H2 DB에 직접 접속하여 데이터를 조회할 수 있습니다.
 
 ## 미구현 사항
