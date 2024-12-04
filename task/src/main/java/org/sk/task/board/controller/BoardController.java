@@ -9,6 +9,9 @@ import org.sk.task.common.code.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/board")
@@ -22,8 +25,9 @@ public class BoardController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ResponseDto> insert(@RequestBody BoardRegisterDto boardRegisterDto){
-        return ResponseDto.response(boardService.insertBoard(boardRegisterDto));
+    public ResponseEntity<ResponseDto> insert(@RequestPart BoardRegisterDto boardRegisterDto,
+                                              @RequestPart(required = false) MultipartFile file) throws IOException {
+        return ResponseDto.response(boardService.insertBoard(boardRegisterDto,file));
     }
 
     @GetMapping("/view/{no}")
@@ -47,8 +51,9 @@ public class BoardController {
     }
 
     @PutMapping("/modify")
-    public ResponseEntity<ResponseDto> modify(@RequestBody BoardModifyDto boardModifyDto){
-        return ResponseDto.response(boardService.modifyBoard(boardModifyDto));
+    public ResponseEntity<ResponseDto> modify(@RequestPart BoardModifyDto boardModifyDto,
+                                              @RequestPart(required = false) MultipartFile file) throws IOException {
+        return ResponseDto.response(boardService.modifyBoard(boardModifyDto,file));
     }
 
     @GetMapping("/condition/author")
@@ -60,12 +65,5 @@ public class BoardController {
     public ResponseEntity<ResponseDto> getConditionTitle(@RequestParam String title, @RequestParam int page){
         return ResponseDto.response(StatusCode.SUCCESS,boardService.getBoardTitle(title, page));
     }
-
-
-
-
-
-
-
 
 }

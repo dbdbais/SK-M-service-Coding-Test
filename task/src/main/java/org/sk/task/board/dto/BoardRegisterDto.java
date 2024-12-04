@@ -14,5 +14,13 @@ public class BoardRegisterDto {
     private Long userId;
     private String title;
     private String content;
-    private String filepath;
+
+    @Override
+    public String toString() {
+        return "BoardRegisterDto{" +
+                "userId=" + userId +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }
