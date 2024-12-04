@@ -48,7 +48,7 @@
 ### 12. Swagger-ui와 H2 DB 조회
 - Swagger-ui를 사용하여 API를 테스트할 수 있습니다.
 - H2 DB에 직접 접속하여 데이터를 조회할 수 있습니다.
-- 
+
 ## 미구현 사항
 
 ### 1. FrontEnd
