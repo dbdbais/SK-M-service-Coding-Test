@@ -57,6 +57,17 @@ public class Board {
         log.info(boardId+"번 게시글의 조회수가 증가하였습니다.");
     }
 
+    public void changeTitle(String newTitle){
+        this.title = newTitle;
+    }
+
+    public void changeContent(String newContent){
+        this.content = newContent;
+    }
+
+    public void changeFilePath(String newFilePath){
+        this.filePath = newFilePath;
+    }
 
 
 }

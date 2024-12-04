@@ -1,6 +1,7 @@
 package org.sk.task.board.controller;
 
 import org.sk.task.board.dto.BoardDeleteDto;
+import org.sk.task.board.dto.BoardModifyDto;
 import org.sk.task.board.dto.BoardRegisterDto;
 import org.sk.task.board.service.BoardService;
 import org.sk.task.common.ResponseDto;
@@ -44,6 +45,25 @@ public class BoardController {
     public ResponseEntity<ResponseDto> getDescBoard(@RequestParam int page){
         return ResponseDto.response(StatusCode.SUCCESS,boardService.getBoardDesc(page));
     }
+
+    @PutMapping("/modify")
+    public ResponseEntity<ResponseDto> modify(@RequestBody BoardModifyDto boardModifyDto){
+        return ResponseDto.response(boardService.modifyBoard(boardModifyDto));
+    }
+
+    @GetMapping("/condition/author")
+    public ResponseEntity<ResponseDto> getConditionAuthor(@RequestParam String authorName, @RequestParam int page){
+        return ResponseDto.response(StatusCode.SUCCESS,boardService.getBoardAuthor(authorName, page));
+    }
+
+    @GetMapping("/condition/title")
+    public ResponseEntity<ResponseDto> getConditionTitle(@RequestParam String title, @RequestParam int page){
+        return ResponseDto.response(StatusCode.SUCCESS,boardService.getBoardTitle(title, page));
+    }
+
+
+
+
 
 
 

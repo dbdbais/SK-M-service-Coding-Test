@@ -78,6 +78,38 @@ public class BoardService {
 //
 //    }
 
+    public StatusCode modifyBoard(BoardModifyDto boardModifyDto){
+        Optional<User> sUser = userRepository.findById(boardModifyDto.getUserId());
+        Optional<Board> sBoard = boardRepository.findById(boardModifyDto.getBoardId());
+
+        if(sUser.isEmpty() || sBoard.isEmpty()){
+            return StatusCode.BAD_REQUEST;
+        }
+
+        if(Objects.equals(sUser.get().getUserId(), sBoard.get().getAuthorId())){
+
+            //각자 바꿔주고
+            if(!boardModifyDto.getTitle().equals(sBoard.get().getTitle())){
+                sBoard.get().changeTitle(boardModifyDto.getTitle());
+            }
+
+            if(!boardModifyDto.getContent().equals(sBoard.get().getContent())){
+                sBoard.get().changeContent(boardModifyDto.getContent());
+            }
+
+            if(boardModifyDto.getFile() != null){
+                //파일 추가하고
+                String filePath = "examplePath";
+                sBoard.get().changeFilePath(filePath);
+            }
+            return StatusCode.SUCCESS;
+        }
+        else{
+            return StatusCode.FORBIDDEN_ACCESS;
+        }
+
+    }
+
     public StatusCode deleteBoard(BoardDeleteDto boardDeleteDto){
         Optional<User> sUser = userRepository.findById(boardDeleteDto.getUserId());
         Optional<Board> sBoard = boardRepository.findById(boardDeleteDto.getBoardId());
@@ -94,6 +126,41 @@ public class BoardService {
         else{
             return StatusCode.FORBIDDEN_ACCESS;
         }
+    }
+
+    public List<BoardListDto> getBoardTitle(String title,int page){
+        Pageable pageable = PageRequest.of(page-1,10);
+        //10개의 리스트의 페이지로 쪼개서 리턴한다.
+
+        Page<Board> pages = boardRepository.findByTitleOrderByCreatedAtDesc(title,pageable);
+
+        return pages.getContent().stream()
+                .map(board -> BoardListDto.builder()
+                        .title(board.getTitle())
+                        .authorName(board.getAuthorName())
+                        .view(board.getView())
+                        .isFile(board.getFilePath() != null)
+                        .registerDate(board.getCreatedAt())
+                        .build())
+                .collect(Collectors.toList());
+
+    }
+
+    public List<BoardListDto> getBoardAuthor(String authorName,int page){
+        Pageable pageable = PageRequest.of(page-1,10);
+        //10개의 리스트의 페이지로 쪼개서 리턴한다.
+
+        Page<Board> pages = boardRepository.findByAuthorNameOrderByCreatedAtDesc(authorName,pageable);
+
+        return pages.getContent().stream()
+                .map(board -> BoardListDto.builder()
+                        .title(board.getTitle())
+                        .authorName(board.getAuthorName())
+                        .view(board.getView())
+                        .isFile(board.getFilePath() != null)
+                        .registerDate(board.getCreatedAt())
+                        .build())
+                .collect(Collectors.toList());
 
     }
 

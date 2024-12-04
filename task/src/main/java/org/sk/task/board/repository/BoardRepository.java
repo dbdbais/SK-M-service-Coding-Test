@@ -13,6 +13,10 @@ public interface BoardRepository extends JpaRepository<Board,Long> {
 
     // createdAt 기준 오름차순 정렬
     Page<Board> findAllByOrderByCreatedAtAsc(Pageable pageable);
+    
+    // 작성자 이름 내림차순 페이징 검색
+    Page<Board> findByAuthorNameOrderByCreatedAtDesc(String authorName, Pageable pageable);
 
-
+    // 제목 기준 내림차순 페이징 검색ㄸ
+    Page<Board> findByTitleOrderByCreatedAtDesc(String title, Pageable pageable);
 }
