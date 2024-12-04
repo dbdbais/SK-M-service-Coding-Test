@@ -12,7 +12,7 @@
 - 본인의 게시글 수정 및 삭제
 - 조건부 검색기능
 - 게시글에 MultiPartFile로 파일 업로드 및 다운로드 기능
+- DB와 Scheduling을 활용한 세션 처리 -> JWT나 Redis로 추후 확장 가능
 ## 미구현
-- JWT 세션처리
 - FrontEnd
 
