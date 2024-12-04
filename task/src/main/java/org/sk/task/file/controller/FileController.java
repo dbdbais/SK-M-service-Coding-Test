@@ -1,8 +1,8 @@
 package org.sk.task.file.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.extern.slf4j.Slf4j;
-import org.sk.task.common.ResponseDto;
-import org.sk.task.common.code.StatusCode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -26,9 +26,10 @@ public class FileController {
     @Value("${file.upload-dir}")
     private String uploadDir;
 
-
+    @Operation(summary = "파일 다운로드", description = "서버에 저장된 파일을 다운로드하는 API입니다. 파일을 제공하려면 파일 이름을 입력하세요.")
     @GetMapping("/{filename}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String filename) {
+    public ResponseEntity<Resource> downloadFile(
+            @Parameter(description = "다운로드할 파일의 이름", example = "example.txt") @PathVariable String filename) {
         try {
             Path filePath = Paths.get(uploadDir).resolve(filename);
 
@@ -53,7 +54,4 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();  // 예외 처리
         }
     }
-
-
-
 }
