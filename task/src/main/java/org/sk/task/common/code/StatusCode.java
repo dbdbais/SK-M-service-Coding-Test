@@ -15,7 +15,8 @@ public enum StatusCode {
     FORBIDDEN_ACCESS(HttpStatus.FORBIDDEN, "권한이 없는 사용자입니다."),
     NO_USER(HttpStatus.BAD_REQUEST,"없는 사용자입니다."),
     DUPLICATE_NICKNAME(HttpStatus.BAD_REQUEST,"중복된 닉네임이 존재합니다."),
-    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,"서버 에러입니다.");
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,"서버 에러입니다."),
+    ALREADY_LOGIN(HttpStatus.BAD_REQUEST,"이미 로그인한 사용자입니다.");
 
 
     private final HttpStatus httpStatus;
