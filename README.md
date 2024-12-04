@@ -11,8 +11,8 @@
 - 게시판 작성
 - 본인의 게시글 수정 및 삭제
 - 조건부 검색기능
-
+- 게시글에 MultiPartFile로 파일 업로드 및 다운로드 기능
 ## 미구현
 - JWT 세션처리
 - FrontEnd
-- MultiPartFile로 파일 첨부
+
