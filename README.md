@@ -26,7 +26,42 @@
 - http://localhost:8080/swagger-ui/index.html#/
 <img width="791" alt="API명세서" src="https://github.com/user-attachments/assets/f6736262-bd1f-4d07-b61a-4c48a080ff4b">
 
+# 기능 소개
+
+## 로그인
+- Postman
+![image](https://github.com/user-attachments/assets/60c5e551-6607-4c40-bd79-53f4491f2753)
+- DB 상태
+![image](https://github.com/user-attachments/assets/ffd8392d-0f30-47da-b6c0-b7187c5a9c1e)
+![image](https://github.com/user-attachments/assets/1a4da058-7e91-4382-850b-923495b2ecf8)
+
+## 로그아웃
+- Postman
+![image](https://github.com/user-attachments/assets/321a2981-5794-445c-9ba2-bc20e78ee5a8)
+- DB 상태
+
+![image](https://github.com/user-attachments/assets/e3ca42c3-1357-44d5-8007-2083b233bcc1)
+
+
+
+## 파일 업로드, 다운로드
+
+- 게시글에 파일 등록
+<img width="851" alt="파일 첨부" src="https://github.com/user-attachments/assets/40efd4bf-d1c5-457e-b3df-bf9cbccc84fa">
+
+
+- 파일 업로드
+<img width="299" alt="파일 업로드" src="https://github.com/user-attachments/assets/3f18e7df-58d9-4df4-8cae-f009158baa10">
+
+
+-파일 다운로드
+
+<img width="858" alt="파일 다운로드" src="https://github.com/user-attachments/assets/5c339076-6361-43d5-8e36-6e30a511fef7">
+
+
+
 ## 개선 사항
 - 현재는 Session이 Scheduled로 주기적으로 실행되지만 Redis를 이용해 TTL을 설정하는 인메모리 DB방식으로 저장한다면 효율을 더욱 개선가능할 것 같다.
 - 세션 방식은 서버의 부담이 매우 커지므로 추후에 JWT방식으로 구현하는 것도 가능할 것 같다.
 - 회원가입 시 이메일을 받는 이유는 추후에 SMTP와 Redis를 이용한 이메일 인증 로직을 넣을 수 있다고 판단하였기 떄문이다.
+
